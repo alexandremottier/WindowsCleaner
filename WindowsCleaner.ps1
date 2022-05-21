@@ -1,3 +1,10 @@
+$WindowsVersion = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").ReleaseId
+if ($WindowsVersion -ne "2009") {
+  Write-Host -ForeGroundColor Red "Votre version de Windows n'est pas compatible avec ce script."
+  pause
+  break
+}
+
 Write-Host -ForegroundColor Yellow "ATTENTION : Ce script va supprimer les téléchargements de plus de 30 jours pour TOUS LES UTILISATEURS !"
 $Confirm = Read-Host "Êtes-vous sûr(e) de vouloir continuer ? (tapez OUI si vous souhaitez continuer)"
 if ($Confirm -eq "OUI")
