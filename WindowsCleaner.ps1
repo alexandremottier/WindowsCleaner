@@ -19,7 +19,7 @@ if ($Confirm -eq "OUI")
   Write-Host "II. Nettoyage des caches des navigateurs Google Chrome, Mozilla Firefox et Internet Explorer pour tous les utilisateurs"
   dir C:\Users | select Name | Export-Csv -Path C:\users\$env:USERNAME\users.csv -NoTypeInformation
   $list=Test-Path C:\users\$env:USERNAME\users.csv
-  Write-Host "Nettoyage des caches Firefox..."
+  Write-Host -ForegroundColor Yellow "Nettoyage des caches Firefox..."
   Write-Host -ForegroundColor cyan
   Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
           Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\* -Recurse -Force -EA SilentlyContinue
@@ -31,8 +31,7 @@ if ($Confirm -eq "OUI")
           Remove-Item -path C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite -Recurse -Force -EA SilentlyContinue
           }
   Write-Host -ForegroundColor Green "Nettoyage des caches Firefox terminé !"
-  sleep 2
-  Write-Host "Nettoyage des caches Chrome..."
+  Write-Host -ForegroundColor Yellow "Nettoyage des caches Chrome..."
   Write-Host -ForegroundColor cyan
   Import-CSV -Path C:\users\$env:USERNAME\users.csv -Header Name | foreach {
           Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -EA SilentlyContinue
@@ -46,8 +45,7 @@ if ($Confirm -eq "OUI")
 
   Write-Host -ForegroundColor Green "Nettoyage des caches Chrome terminé !"
   # Clear Internet Explorer
-  sleep 2
-  Write-Host "Nettoyage des caches Internet Explorer..."
+  Write-Host -ForegroundColor Yellow "Nettoyage des caches Internet Explorer..."
   Write-Host -ForegroundColor cyan
   Import-CSV -Path C:\users\$env:USERNAME\users.csv | foreach {
     Remove-Item -path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -EA SilentlyContinue
@@ -58,7 +56,7 @@ if ($Confirm -eq "OUI")
           }
   Remove-Item -Path C:\users\$env:USERNAME\users.csv -Force
   Write-Host -ForegroundColor Green "Nettoyage des caches Internet Explorer terminé !"
-  sleep 2
+
   Write-Host -ForegroundColor Green "Nettoyage des caches navigateurs terminé !"
   sleep 2
   Write-Host "III. Nettoyage du cache Windows Update..."
